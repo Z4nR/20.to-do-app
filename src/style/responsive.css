@@ -1,0 +1,19 @@
+.todo_list {
+  display: grid;
+}
+
+@media screen and (min-width: 475px) {
+  .todo_list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .todo_list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

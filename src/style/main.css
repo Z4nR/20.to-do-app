@@ -1,0 +1,78 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: whitesmoke;
+}
+
+.todo-app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.todo-app h1 {
+  text-align: center;
+  font-weight: normal;
+  font-size: 48px;
+  margin-bottom: 32px;
+}
+
+.todo-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  margin: 4px 0;
+  border: 1px solid black;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.todo-item_title {
+  text-align: center;
+}
+
+.todo-item_desc {
+  font-weight: lighter;
+  text-align: justify;
+  margin: 8px 0px 8px 0px;
+}
+
+.todo-btn_box {
+  display: flex;
+  width: 100%;
+  margin-top: auto;
+}
+
+.archive_box,
+.delete_box {
+  flex-grow: 4;
+  margin: 8px;
+}
+
+.todo_item_delete {
+  padding: 8px;
+  width: 100%;
+  font-size: 18px;
+  background-color: orangered;
+  color: white;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.todo_item_archive {
+  padding: 8px;
+  width: 100%;
+  font-size: 18px;
+  background-color: rgb(233, 215, 77);
+  color: black;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
