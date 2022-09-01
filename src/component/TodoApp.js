@@ -19,16 +19,18 @@ class TodoApp extends React.Component {
     this.setState({ todos });
   }
 
-  onAddTodoHandler({ title, body }) {
+  onAddTodoHandler({ title, body, createdAt }) {
+    const time = new Date();
     this.setState((prevState) => {
       return {
         todos: [
           ...prevState.todos,
           {
-            id: +new Date(),
+            id: time.getDate(),
             title,
             body,
-            createdAt: +new Date(),
+            createdAt: time.toISOString(),
+            archive: false,
           },
         ],
       };
@@ -39,8 +41,9 @@ class TodoApp extends React.Component {
     return (
       <div className="todo-app">
         <h1>Personal To Do List</h1>
-        <h3>Tambah Kontak</h3>
+        <h3>Tambah To Do</h3>
         <TodoInput addTodo={this.onAddTodoHandler} />
+        <h3>List To Do</h3>
         <TodoList
           todos={this.state.todos}
           onDelete={this.onDeleteTodoHandler}

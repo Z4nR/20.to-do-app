@@ -14,9 +14,10 @@ class TodoInput extends React.Component {
   }
 
   onTitleChangeTodoHandler(event) {
+    const maxChar = 15;
     this.setState(() => {
       return {
-        title: event.target.value,
+        title: event.target.value.slice(0, maxChar),
       };
     });
   }
@@ -36,14 +37,16 @@ class TodoInput extends React.Component {
 
   render() {
     return (
-      <form className="todo-input">
+      <form className="todo-input" onSubmit={this.onSubmitTodoHandler}>
         <input
+          className="todo-title"
           type="text"
           placeholder="Title"
           value={this.state.title}
           onChange={this.onTitleChangeTodoHandler}
         />
         <input
+          className="todo-body"
           type="text"
           placeholder="Description"
           value={this.state.body}

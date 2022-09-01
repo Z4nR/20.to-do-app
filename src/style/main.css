@@ -22,6 +22,16 @@ body {
   margin-bottom: 32px;
 }
 
+.todo_list {
+  border: 1px dashed black;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 14px 0;
+  margin-bottom: 32px;
+  height: 750px;
+  overflow-y: scroll;
+}
+
 .todo-item {
   display: flex;
   flex-direction: column;
@@ -43,13 +53,18 @@ body {
   margin: 8px 0px 8px 0px;
 }
 
+.todo-item_create {
+  font-weight: lighter;
+  font-size: 15px;
+  margin: 6px 0 12px 0;
+}
+
 .todo-btn_box {
   display: flex;
   width: 100%;
   margin-top: auto;
 }
 
-.archive_box,
 .delete_box {
   flex-grow: 4;
   margin: 8px;
@@ -66,13 +81,37 @@ body {
   cursor: pointer;
 }
 
-.todo_item_archive {
-  padding: 8px;
-  width: 100%;
-  font-size: 18px;
-  background-color: rgb(233, 215, 77);
-  color: black;
+.todo-input {
+  border: 1px dashed black;
+  padding: 16px;
+  margin: 14px 0;
+  border-radius: 8px;
+  margin-bottom: 32px;
+}
+
+.todo-title,
+.todo-body {
+  display: block;
+  border-radius: 5px;
   border: 0;
-  border-radius: 4px;
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  font-family: "Inter", sans-serif;
+}
+
+.todo-input button {
+  border-radius: 5px;
+  border: 0;
+  background-color: lightblue;
+  width: 100%;
+  padding: 8px;
+  font-family: "Inter", sans-serif;
+  font-weight: 550;
+  text-transform: uppercase;
   cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 1px;
 }
