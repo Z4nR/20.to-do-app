@@ -4,8 +4,8 @@ import TodoItem from "./TodoItem";
 function TodoList({ todos, onDelete }) {
   return (
     <div className="todo_list">
-      {todos.map((todo) => (
-        <TodoItem key={todo.id} id={todo.id} onDelete={onDelete} {...todo} />
+      {todos.map((todo, index) => (
+        <TodoItem key={index} id={todo.id} onDelete={onDelete} {...todo} />
       ))}
     </div>
   );
