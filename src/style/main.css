@@ -54,8 +54,8 @@ body {
 }
 
 .todo-item_create {
-  font-weight: lighter;
-  font-size: 15px;
+  font-weight: 400;
+  font-size: 12px;
   margin: 6px 0 12px 0;
 }
 

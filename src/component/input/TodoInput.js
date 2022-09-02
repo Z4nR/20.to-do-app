@@ -33,6 +33,12 @@ class TodoInput extends React.Component {
   onSubmitTodoHandler(event) {
     event.preventDefault();
     this.props.addTodo(this.state);
+    this.setState(() => {
+      return {
+        title: "",
+        body: "",
+      };
+    });
   }
 
   render() {

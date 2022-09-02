@@ -19,14 +19,14 @@ class TodoApp extends React.Component {
     this.setState({ todos });
   }
 
-  onAddTodoHandler({ title, body, createdAt }) {
+  onAddTodoHandler({ title, body }) {
     const time = new Date();
     this.setState((prevState) => {
       return {
         todos: [
           ...prevState.todos,
           {
-            id: time.getDate(),
+            id: time.getMilliseconds(),
             title,
             body,
             createdAt: time.toISOString(),
