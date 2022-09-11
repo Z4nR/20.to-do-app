@@ -1,14 +1,20 @@
 import React from "react";
-import DeleteTodoBtn from "./DeleteButton";
+import PropTypes from "prop-types";
+import DeleteNoteBtn from "./DeleteButton";
 
-function TodoBtn({ id, onDelete }) {
+function NoteBtn({ id, onDelete }) {
   return (
-    <div className="todo-btn_box">
+    <div className="note-btn_box">
       <div className="delete_box">
-        <DeleteTodoBtn id={id} onDelete={onDelete} />
+        <DeleteNoteBtn id={id} onDelete={onDelete} />
       </div>
     </div>
   );
 }
 
-export default TodoBtn;
+NoteBtn.propTypes = {
+  id: PropTypes.number.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
+export default NoteBtn;

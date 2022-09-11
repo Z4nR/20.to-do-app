@@ -9,20 +9,35 @@ body {
   background-color: whitesmoke;
 }
 
-.todo-app {
+.note-app_header {
+  display: flex;
+  align-items: center;
+  padding: 32px 0;
+}
+
+.note-app_header h1 {
+  font-weight: normal;
+  font-size: 32px;
+  flex: 1;
+}
+
+.note-app {
   max-width: 800px;
   margin: 0 auto;
   padding: 16px;
 }
 
-.todo-app h1 {
-  text-align: center;
-  font-weight: normal;
-  font-size: 48px;
-  margin-bottom: 32px;
+.navigation ul li {
+  display: inline-block;
+  padding: 16px;
 }
 
-.todo_list {
+.navigation ul li a {
+  font-size: 28px;
+  color: black;
+}
+
+.note_list {
   border: 1px dashed black;
   border-radius: 8px;
   padding: 8px;
@@ -32,7 +47,14 @@ body {
   overflow-y: scroll;
 }
 
-.todo-item {
+.note-list_empty {
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
+  margin-top: 25px;
+}
+
+.note-item {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -43,23 +65,23 @@ body {
   border-radius: 8px;
 }
 
-.todo-item_title {
+.note-item_title {
   text-align: center;
 }
 
-.todo-item_desc {
+.note-item_desc {
   font-weight: lighter;
   text-align: justify;
   margin: 8px 0px 8px 0px;
 }
 
-.todo-item_create {
+.note-item_create {
   font-weight: 400;
   font-size: 12px;
   margin: 6px 0 12px 0;
 }
 
-.todo-btn_box {
+.note-btn_box {
   display: flex;
   width: 100%;
   margin-top: auto;
@@ -70,7 +92,7 @@ body {
   margin: 8px;
 }
 
-.todo_item_delete {
+.note_item_delete {
   padding: 8px;
   width: 100%;
   font-size: 18px;
@@ -81,7 +103,7 @@ body {
   cursor: pointer;
 }
 
-.todo-input {
+.note-input {
   border: 1px dashed black;
   padding: 16px;
   margin: 14px 0;
@@ -89,8 +111,8 @@ body {
   margin-bottom: 32px;
 }
 
-.todo-title,
-.todo-body {
+.note-title,
+.note-body {
   display: block;
   border-radius: 5px;
   border: 0;
@@ -100,7 +122,7 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-.todo-input button {
+.note-input button {
   border-radius: 5px;
   border: 0;
   background-color: lightblue;

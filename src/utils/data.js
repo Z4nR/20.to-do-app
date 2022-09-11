@@ -1,4 +1,4 @@
-const getTodo = () => [
+let notes = [
   {
     id: 1,
     title: "Babel",
@@ -43,6 +43,26 @@ const getTodo = () => [
   },
 ];
 
+function getNotes() {
+  return notes;
+}
+
+function addNote(note) {
+  notes = [
+    ...notes,
+    {
+      id: new Date().getMilliseconds(),
+      createdAt: new Date().toISOString(),
+      archive: false,
+      ...note,
+    },
+  ];
+}
+
+function deleteNote(id) {
+  notes = notes.filter((note) => note.id !== id);
+}
+
 const showDateFormat = (date) => {
   const options = {
     weekday: "long",
@@ -53,4 +73,4 @@ const showDateFormat = (date) => {
   return new Date(date).toLocaleDateString("id-ID", options);
 };
 
-export { getTodo, showDateFormat };
+export { getNotes, addNote, deleteNote, showDateFormat };

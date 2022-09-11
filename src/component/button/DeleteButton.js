@@ -1,11 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-function DeleteTodoBtn({ id, onDelete }) {
+function DeleteNoteBtn({ id, onDelete }) {
   return (
-    <button className="todo_item_delete" onClick={() => onDelete(id)}>
+    <button className="note_item_delete" onClick={() => onDelete(id)}>
       X
     </button>
   );
 }
 
-export default DeleteTodoBtn;
+DeleteNoteBtn.propTypes = {
+  id: PropTypes.number.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
+export default DeleteNoteBtn;
