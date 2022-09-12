@@ -1,15 +1,31 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import NoteList from "../component/NoteList";
-import { deleteNote, getNotes } from "../utils/data";
+import NoteSearch from "../component/search/SearchBar";
+import { deleteNote, getAllNotes } from "../utils/data";
+
+function HomePageWrapper() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword");
+  function changeSearchParams(keyword) {
+    setSearchParams({ keyword });
+  }
+
+  return (
+    <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams} />
+  );
+}
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: getNotes(),
+      notes: getAllNotes(),
+      keyword: props.defaultKeyword || "",
     };
 
     this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
+    this.onKeywordChangeHandler = this.onKeywordChangeHandler.bind(this);
   }
 
   onDeleteNoteHandler(id) {
@@ -17,22 +33,39 @@ class HomePage extends React.Component {
 
     this.setState(() => {
       return {
-        contacts: getNotes(),
+        notes: getAllNotes(),
       };
     });
   }
 
+  onKeywordChangeHandler(keyword) {
+    this.setState(() => {
+      return {
+        keyword,
+      };
+    });
+
+    this.props.keywordChange(keyword);
+  }
+
   render() {
+    const notes = this.state.notes.filter((note) => {
+      return note.title
+        .toLowerCase()
+        .includes(this.state.keyword.toLowerCase());
+    });
+
     return (
       <section>
-        <h3>List of Your Note</h3>
-        <NoteList
-          notes={this.state.notes}
-          onDelete={this.onDeleteNoteHandler}
+        <NoteSearch
+          keyword={this.state.keyword}
+          keywordChange={this.onKeywordChangeHandler}
         />
+        <h3>List of Your Note</h3>
+        <NoteList notes={notes} onDelete={this.onDeleteNoteHandler} />
       </section>
     );
   }
 }
 
-export default HomePage;
+export default HomePageWrapper;

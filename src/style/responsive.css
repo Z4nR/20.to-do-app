@@ -2,6 +2,10 @@
   display: grid;
 }
 
+.note-item {
+  max-height: 350px;
+}
+
 @media screen and (min-width: 475px) {
   .note_list {
     display: grid;

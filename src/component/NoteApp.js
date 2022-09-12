@@ -2,6 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import Navigation from "./Navigation";
 import HomePage from "../page/HomePage";
 import AddPage from "../page/AddPage";
+import DetailPage from "../page/DetailPage";
+import NotFound from "../page/NotFound";
 
 function NoteApp() {
   return (
@@ -12,8 +14,10 @@ function NoteApp() {
       </header>
       <main>
         <Routes>
+          <Route path="*" element={<NotFound />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/add" element={<AddPage />} />
+          <Route path="/note/:id" element={<DetailPage />} />
         </Routes>
       </main>
     </div>

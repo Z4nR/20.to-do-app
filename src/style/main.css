@@ -50,8 +50,17 @@ body {
 .note-list_empty {
   text-align: center;
   font-weight: bold;
-  font-size: 35px;
-  margin-top: 25px;
+  font-size: 28px;
+  margin-top: 64px;
+  height: 100%;
+}
+
+.note-found-page {
+  text-align: center;
+  font-weight: bold;
+  font-size: 28px;
+  margin-top: 64px;
+  height: 100%;
 }
 
 .note-item {
@@ -69,10 +78,50 @@ body {
   text-align: center;
 }
 
+.note-item_title a {
+  color: black;
+}
+
 .note-item_desc {
   font-weight: lighter;
+  max-height: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: justify;
   margin: 8px 0px 8px 0px;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+}
+
+.note-body_detail {
+  height: 400px;
+  margin: 4px 0;
+  border: 1px solid black;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.note-detail_header {
+  display: flex;
+}
+
+.note-create_detail {
+  font-weight: bold;
+  flex: 1;
+}
+
+.note-detail_delete {
+  color: red;
+}
+
+.note-desc_detail {
+  margin-top: 16px;
+  overflow: scroll;
+  border: 1px dashed black;
+  border-radius: 8px;
+  padding: 8px;
+  height: 90%;
 }
 
 .note-item_create {
@@ -132,6 +181,17 @@ body {
   font-weight: 550;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.search-bar {
+  display: block;
+  width: 100%;
+  margin: 16px 0;
+  padding: 12px;
+  background-color: transparent;
+  font-family: "Inter", sans-serif;
+  border: 2px dashed black;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar {

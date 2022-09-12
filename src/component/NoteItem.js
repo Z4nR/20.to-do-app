@@ -6,14 +6,14 @@ import NoteItemBody from "./NoteItemBody";
 function NoteItem({ id, title, createdAt, body, onDelete }) {
   return (
     <div className="note-item">
-      <NoteItemBody title={title} createdAt={createdAt} body={body} />
+      <NoteItemBody id={id} title={title} createdAt={createdAt} body={body} />
       <NoteBtn id={id} onDelete={onDelete} />
     </div>
   );
 }
 
 NoteItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,

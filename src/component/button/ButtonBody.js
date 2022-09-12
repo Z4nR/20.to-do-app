@@ -13,7 +13,7 @@ function NoteBtn({ id, onDelete }) {
 }
 
 NoteBtn.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 

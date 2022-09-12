@@ -11,8 +11,10 @@ function NoteList({ notes, onDelete }) {
     </div>
   ) : (
     <>
-      <p className="note-list_empty">You Dont Have Any Notes</p>
-      <p className="note-list_empty">Please Input Some Note</p>
+      <div>
+        <p className="note-list_empty">You Dont Have Any Notes</p>
+        <p style={{ textAlign: "center" }}>Please Input Some Note</p>
+      </div>
     </>
   );
 }

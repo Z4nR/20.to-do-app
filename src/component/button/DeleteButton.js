@@ -10,7 +10,7 @@ function DeleteNoteBtn({ id, onDelete }) {
 }
 
 DeleteNoteBtn.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
