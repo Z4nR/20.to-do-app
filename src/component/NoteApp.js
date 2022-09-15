@@ -13,6 +13,7 @@ import { ThemeProvider } from "../contexts/ThemeContext";
 function NoteApp() {
   const [authedUser, setAuthedUser] = useState(null);
   const [allNotes, setAllNotes] = useState([]);
+  const [initializing, setInitializing] = useState(true);
   const navigate = useNavigate();
 
   const [themeNote, setThemeNote] = useState("light");
@@ -33,6 +34,7 @@ function NoteApp() {
     getUserLogged().then(({ data }) => {
       setAuthedUser(data);
       setFullNote();
+      setInitializing(false);
     });
   }, []);
 
@@ -54,6 +56,10 @@ function NoteApp() {
     setAuthedUser(null);
     navigate("/");
     putAccessToken("");
+  }
+
+  if (initializing) {
+    return null;
   }
 
   if (authedUser === null) {
