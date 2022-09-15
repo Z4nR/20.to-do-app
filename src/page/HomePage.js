@@ -1,71 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import NoteList from "../component/NoteList";
 import NoteSearch from "../component/search/SearchBar";
-import { deleteNote, getAllNotes } from "../utils/data";
+import { deleteNote, getActiveNotes } from "../utils/api";
 
-function HomePageWrapper() {
+function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const keyword = searchParams.get("keyword");
-  function changeSearchParams(keyword) {
+  const [notes, setNotes] = useState([]);
+  const [keyword, setKeyword] = useState(() => {
+    return searchParams.get("keyword") || "";
+  });
+
+  useEffect(() => {
+    getActiveNotes().then(({ data }) => {
+      setNotes(data);
+    });
+  }, []);
+
+  async function onDeleteNoteHandler(id) {
+    await deleteNote(id);
+
+    const { data } = await getActiveNotes();
+    setNotes(data);
+  }
+
+  function onKeywordChangeHandler(keyword) {
+    setKeyword(keyword);
     setSearchParams({ keyword });
   }
 
+  const filterNotes = notes.filter((note) => {
+    return note.title.toLowerCase().includes(keyword.toLowerCase());
+  });
+
   return (
-    <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams} />
+    <section>
+      <NoteSearch keyword={keyword} keywordChange={onKeywordChangeHandler} />
+      <h3>List of Your Note</h3>
+      <NoteList notes={filterNotes} onDelete={onDeleteNoteHandler} />
+    </section>
   );
 }
 
-class HomePage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      notes: getAllNotes(),
-      keyword: props.defaultKeyword || "",
-    };
-
-    this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
-    this.onKeywordChangeHandler = this.onKeywordChangeHandler.bind(this);
-  }
-
-  onDeleteNoteHandler(id) {
-    deleteNote(id);
-
-    this.setState(() => {
-      return {
-        notes: getAllNotes(),
-      };
-    });
-  }
-
-  onKeywordChangeHandler(keyword) {
-    this.setState(() => {
-      return {
-        keyword,
-      };
-    });
-
-    this.props.keywordChange(keyword);
-  }
-
-  render() {
-    const notes = this.state.notes.filter((note) => {
-      return note.title
-        .toLowerCase()
-        .includes(this.state.keyword.toLowerCase());
-    });
-
-    return (
-      <section>
-        <NoteSearch
-          keyword={this.state.keyword}
-          keywordChange={this.onKeywordChangeHandler}
-        />
-        <h3>List of Your Note</h3>
-        <NoteList notes={notes} onDelete={this.onDeleteNoteHandler} />
-      </section>
-    );
-  }
-}
-
-export default HomePageWrapper;
+export default HomePage;
