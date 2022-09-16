@@ -31,8 +31,9 @@ function DetailPage({ onDelete }) {
           </h4>
           <button
             className="note-detail_delete"
-            onClick={() => {
-              onDetailDelete(id);
+            onClick={(event) => {
+              event.preventDefault();
+              onDetailDelete();
               navigate("/");
             }}
           >

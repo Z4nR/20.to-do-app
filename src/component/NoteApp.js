@@ -25,7 +25,9 @@ function NoteApp() {
 
   const toggleTheme = () => {
     setThemeNote((prevTheme) => {
-      return prevTheme === "light" ? "dark" : "light";
+      const changeTheme = prevTheme === "light" ? "dark" : "light";
+      localStorage.setItem("themeNote", changeTheme);
+      return changeTheme;
     });
   };
 
@@ -83,6 +85,7 @@ function NoteApp() {
         <div className="note-app">
           <header className="note-app_header">
             <h1>Personal Note List</h1>
+            <Navigation logout={onLogout} name={null} authed={authedUser} />
           </header>
           <main>
             <Routes>
@@ -103,7 +106,11 @@ function NoteApp() {
       <div className="note-app">
         <header className="note-app_header">
           <h1>Personal Note List</h1>
-          <Navigation logout={onLogout} name={authedUser.name} />
+          <Navigation
+            logout={onLogout}
+            name={authedUser.name}
+            authed={authedUser}
+          />
         </header>
         <main>
           <Routes>
