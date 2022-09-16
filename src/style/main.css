@@ -1,11 +1,13 @@
 :root {
   --font-color: #333;
   --background-color: #eee;
+  --outline-color: #333;
 }
 
 [data-theme="dark"] {
   --font-color: #eee;
   --background-color: #333;
+  --outline-color: #eee;
 }
 
 * {
@@ -19,6 +21,8 @@ body {
   background-color: var(--background-color);
   color: var(--font-color);
 }
+
+/*Note Header*/
 
 .note-app_header {
   display: flex;
@@ -37,6 +41,8 @@ body {
   margin: 0 auto;
   padding: 16px;
 }
+
+/*Note Navigation*/
 
 .navigation ul li {
   display: inline-block;
@@ -60,8 +66,10 @@ body {
   gap: 10px;
 }
 
+/*Note List Box*/
+
 .note_list {
-  border: 1px dashed black;
+  border: 1px dashed var(--outline-color);
   border-radius: 8px;
   padding: 8px;
   margin: 14px 0;
@@ -70,14 +78,9 @@ body {
   overflow-y: scroll;
 }
 
-.note-list_empty {
-  text-align: center;
-  font-weight: bold;
-  font-size: 28px;
-  margin-top: 64px;
-  height: 100%;
-}
+/*Note Empty List and Not Found PAge*/
 
+.note-list_empty,
 .note-found-page {
   text-align: center;
   font-weight: bold;
@@ -86,13 +89,15 @@ body {
   height: 100%;
 }
 
+/*Note Item*/
+
 .note-item {
   display: flex;
   flex-direction: column;
   height: 100%;
   align-items: center;
   margin: 4px 0;
-  border: 1px solid black;
+  border: 1px solid var(--outline-color);
   padding: 16px;
   border-radius: 8px;
 }
@@ -102,7 +107,7 @@ body {
 }
 
 .note-item_title a {
-  color: black;
+  color: var(--font-color);
 }
 
 .note-item_desc {
@@ -117,10 +122,17 @@ body {
   display: -webkit-box;
 }
 
+/*Detail Page*/
+
+.note-detail_empty {
+  text-align: center;
+  font-size: larger;
+}
+
 .note-body_detail {
   height: 400px;
   margin: 4px 0;
-  border: 1px solid black;
+  border: 1px solid var(--outline-color);
   padding: 16px;
   border-radius: 8px;
 }
@@ -135,13 +147,17 @@ body {
 }
 
 .note-detail_delete {
+  background-color: transparent;
+  font-size: 16px;
   color: red;
+  border: 0;
+  cursor: pointer;
 }
 
 .note-desc_detail {
   margin-top: 16px;
   overflow: scroll;
-  border: 1px dashed black;
+  border: 1px dashed var(--outline-color);
   border-radius: 8px;
   padding: 8px;
   height: 90%;
@@ -152,6 +168,8 @@ body {
   font-size: 12px;
   margin: 6px 0 12px 0;
 }
+
+/*Note Item Box*/
 
 .note-btn_box {
   display: flex;
@@ -175,14 +193,6 @@ body {
   cursor: pointer;
 }
 
-.note-input {
-  border: 1px dashed black;
-  padding: 16px;
-  margin: 14px 0;
-  border-radius: 8px;
-  margin-bottom: 32px;
-}
-
 .note-title,
 .note-body {
   display: block;
@@ -192,6 +202,16 @@ body {
   padding: 8px;
   margin: 8px 0;
   font-family: "Inter", sans-serif;
+}
+
+/*Add Note Page*/
+
+.note-input {
+  border: 1px dashed var(--outline-color);
+  padding: 16px;
+  margin: 14px 0;
+  border-radius: 8px;
+  margin-bottom: 32px;
 }
 
 .note-input button {
@@ -206,6 +226,8 @@ body {
   cursor: pointer;
 }
 
+/*Search Bar*/
+
 .search-bar {
   display: block;
   width: 100%;
@@ -213,9 +235,11 @@ body {
   padding: 12px;
   background-color: transparent;
   font-family: "Inter", sans-serif;
-  border: 2px dashed black;
+  border: 2px dashed var(--outline-color);
   border-radius: 4px;
 }
+
+/*Register & Login Page*/
 
 .input-block {
   margin-top: 16px;
@@ -247,7 +271,7 @@ body {
   margin: 8px 0;
   font-size: 20px;
   background-color: transparent;
-  border: 2px dashed black;
+  border: 2px dashed var(--outline-color);
   border-radius: 8px;
 }
 
@@ -258,10 +282,12 @@ body {
   padding: 16px;
   font-size: 24px;
   background-color: tan;
-  border: 2px dashed black;
+  border: 2px dashed var(--outline-color);
   border-radius: 8px;
   margin: 16px 0;
 }
+
+/*Web Scrollbar*/
 
 ::-webkit-scrollbar {
   width: 1px;

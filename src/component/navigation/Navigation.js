@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { FiHome, FiPlusCircle, FiLogOut } from "react-icons/fi";
+import { FaMoon, FaSun } from "react-icons/fa";
 import { BsTranslate } from "react-icons/bs";
-import ToggleTheme from "../setting/Theme";
+import ThemeContext from "../../contexts/ThemeContext";
 
 function Navigation({ logout, name }) {
+  const { themeNote, toggleTheme } = useContext(ThemeContext);
+
   return (
     <nav className="navigation">
       <ul>
@@ -20,12 +23,14 @@ function Navigation({ logout, name }) {
           </Link>
         </li>
         <li>
-          <Link to="/setting">
+          <Link to="/translate">
             <BsTranslate />
           </Link>
         </li>
         <li>
-          <ToggleTheme />
+          <button onClick={toggleTheme}>
+            {themeNote === "light" ? <FaMoon /> : <FaSun />}
+          </button>
         </li>
         <li>
           <button onClick={logout}>

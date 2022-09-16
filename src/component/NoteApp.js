@@ -7,7 +7,12 @@ import DetailPage from "../page/DetailPage";
 import NotFound from "../page/NotFound";
 import RegisterPage from "../page/RegisterPage";
 import LoginPage from "../page/LoginPage";
-import { getActiveNotes, getUserLogged, putAccessToken } from "../utils/api";
+import {
+  deleteNote,
+  getActiveNotes,
+  getUserLogged,
+  putAccessToken,
+} from "../utils/api";
 import { ThemeProvider } from "../contexts/ThemeContext";
 
 function NoteApp() {
@@ -17,6 +22,13 @@ function NoteApp() {
   const navigate = useNavigate();
 
   const [themeNote, setThemeNote] = useState("light");
+
+  const toggleTheme = () => {
+    setThemeNote((prevTheme) => {
+      return prevTheme === "light" ? "dark" : "light";
+    });
+  };
+
   const themeNoteContext = useMemo(() => {
     return {
       themeNote,
@@ -24,11 +36,9 @@ function NoteApp() {
     };
   }, [themeNote]);
 
-  function toggleTheme() {
-    setThemeNote((prevState) => {
-      return prevState === "light" ? "dark" : "light";
-    });
-  }
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", themeNote);
+  }, [themeNote]);
 
   useEffect(() => {
     getUserLogged().then(({ data }) => {
@@ -42,6 +52,11 @@ function NoteApp() {
     getActiveNotes().then(({ data }) => {
       setAllNotes(data);
     });
+  }
+
+  async function onDelete(id) {
+    await deleteNote(id);
+    setFullNote();
   }
 
   async function onLoginSuccess({ accessToken }) {
@@ -95,7 +110,10 @@ function NoteApp() {
             <Route path="*" element={<NotFound />} />
             <Route path="/" element={<HomePage notes={allNotes} />} />
             <Route path="/add" element={<AddPage />} />
-            <Route path="/note/:id" element={<DetailPage />} />
+            <Route
+              path="/note/:id"
+              element={<DetailPage onDelete={onDelete} />}
+            />
           </Routes>
         </main>
       </div>

@@ -1,46 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate, useParams } from "react-router-dom";
-import NoteDetail from "../component/detail/NoteDetail";
-import { deleteNote, getNote } from "../utils/data";
+import { getNote } from "../utils/api";
+import { showFormattedDate } from "../utils/data";
 
-function DetailPageWrapper() {
+function DetailPage({ onDelete }) {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [note, setNoteDetail] = useState(null);
 
-  function onDetailDeleteHandler(id) {
-    deleteNote(id);
+  getNote(id).then((data) => {
+    setNoteDetail(data.data);
+  });
+
+  function onDetailDelete() {
+    onDelete(id);
     navigate("/");
   }
 
-  return <DetailPage id={id} onDelete={onDetailDeleteHandler} />;
-}
-
-class DetailPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      note: getNote(props.id),
-    };
+  if (!note) {
+    return <p className="note-detail_empty">Note not found!!</p>;
   }
 
-  render() {
-    if (this.state.note === null) {
-      return <p>Note not found!!</p>;
-    }
-
-    return (
-      <section>
-        <NoteDetail {...this.state.note} onDelete={deleteNote} />
-      </section>
-    );
-  }
+  return (
+    <section>
+      <div className="note-body_detail">
+        <div className="note-detail_header">
+          <h4 className="note-create_detail">
+            Create at: {showFormattedDate(note.createdAt)}
+          </h4>
+          <button
+            className="note-detail_delete"
+            onClick={() => {
+              onDetailDelete(id);
+              navigate("/");
+            }}
+          >
+            <h4>Delete</h4>
+          </button>
+        </div>
+        <p className="note-desc_detail">{note.body}</p>
+      </div>
+    </section>
+  );
 }
 
 DetailPage.propTypes = {
-  id: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
-export default DetailPageWrapper;
+export default DetailPage;
