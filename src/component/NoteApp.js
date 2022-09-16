@@ -85,7 +85,7 @@ function NoteApp() {
         <div className="note-app">
           <header className="note-app_header">
             <h1>Personal Note List</h1>
-            <Navigation logout={onLogout} name={null} authed={authedUser} />
+            <Navigation logout={onLogout} name={""} />
           </header>
           <main>
             <Routes>
@@ -106,11 +106,7 @@ function NoteApp() {
       <div className="note-app">
         <header className="note-app_header">
           <h1>Personal Note List</h1>
-          <Navigation
-            logout={onLogout}
-            name={authedUser.name}
-            authed={authedUser}
-          />
+          <Navigation logout={onLogout} name={authedUser.name} />
         </header>
         <main>
           <Routes>

@@ -58,7 +58,10 @@ function RegisterPage() {
         </button>
       </div>
       <p>
-        Kembali ke <Link to="/">Masuk</Link>
+        Kembali ke{" "}
+        <Link to="/" className="toLink">
+          Masuk
+        </Link>
       </p>
     </section>
   );

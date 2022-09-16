@@ -44,7 +44,10 @@ function LoginPage({ loginSuccess }) {
         </button>
       </div>
       <p>
-        Belum punya akun? <Link to="register">Daftar disini</Link>
+        Belum punya akun?{" "}
+        <Link to="register" className="toLink">
+          Daftar disini
+        </Link>
       </p>
     </section>
   );

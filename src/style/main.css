@@ -14,11 +14,16 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  transition: background 0.3s ease-in;
 }
 
 body {
   font-family: "Inter", sans-serif;
   background-color: var(--background-color);
+  color: var(--font-color);
+}
+
+.toLink {
   color: var(--font-color);
 }
 
@@ -78,7 +83,7 @@ body {
   overflow-y: scroll;
 }
 
-/*Note Empty List and Not Found PAge*/
+/*Note Empty List and Not Found Page*/
 
 .note-list_empty,
 .note-found-page {
@@ -255,7 +260,8 @@ body {
   margin-top: 16px;
 }
 
-.register_input label {
+.register_input label,
+.login_input label {
   display: block;
   width: 100%;
   margin: 8px 0;

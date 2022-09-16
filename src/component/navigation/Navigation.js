@@ -9,7 +9,7 @@ import ThemeContext from "../../contexts/ThemeContext";
 function Navigation({ logout, name }) {
   const { themeNote, toggleTheme } = useContext(ThemeContext);
 
-  return (
+  return name ? (
     <nav className="navigation">
       <ul>
         <li>
@@ -36,6 +36,21 @@ function Navigation({ logout, name }) {
           <button onClick={logout}>
             {name}
             <FiLogOut />
+          </button>
+        </li>
+      </ul>
+    </nav>
+  ) : (
+    <nav className="navigation">
+      <ul>
+        <li>
+          <Link to="/translate">
+            <BsTranslate />
+          </Link>
+        </li>
+        <li>
+          <button onClick={toggleTheme}>
+            {themeNote === "light" ? <FaMoon /> : <FaSun />}
           </button>
         </li>
       </ul>
