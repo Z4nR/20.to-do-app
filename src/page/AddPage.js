@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import NoteInput from "../component/input/NoteInput";
+import DataContext from "../contexts/DataContext";
 import { LocaleConsumer } from "../contexts/LocaleContext";
-import { addNote } from "../utils/api";
+import { addNote, getActiveNotes } from "../utils/api";
 
 function AddPage() {
+  const {setNotes} = useContext(DataContext)
   const navigate = useNavigate();
 
   async function onAddNoteHandler(note) {
     await addNote(note);
+    const { data } = await getActiveNotes();
+    setNotes(data)
     navigate("/");
   }
 

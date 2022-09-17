@@ -1,48 +1,57 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate, useParams } from "react-router-dom";
-import { getNote } from "../utils/api";
+import { getActiveNotes, getNote } from "../utils/api";
 import { showFormattedDate } from "../utils/time-format";
+import DataContext from "../contexts/DataContext";
 
 function DetailPage({ onDelete }) {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { setNotes } = useContext(DataContext);
   const [note, setNoteDetail] = useState(null);
+  const [isLoading, setIsloading] = useState(true);
 
-  getNote(id).then((data) => {
-    setNoteDetail(data.data);
-  });
-
-  function onDetailDelete() {
+  async function onDetailDelete() {
     onDelete(id);
+    const { data } = await getActiveNotes();
+    setNotes(data);
     navigate("/");
   }
 
-  if (!note) {
-    return <p className="note-detail_empty">Note not found!!</p>;
-  }
+  useEffect(() => {
+    getNote(id).then((data) => {
+      setNoteDetail(data.data);
+      setIsloading(false);
+    });
+  }, [id]);
 
-  return (
-    <section>
-      <div className="note-body_detail">
-        <div className="note-detail_header">
-          <h4 className="note-create_detail">
-            Create at: {showFormattedDate(note.createdAt)}
-          </h4>
-          <button
-            className="note-detail_delete"
-            onClick={(event) => {
-              event.preventDefault();
-              onDetailDelete();
-              navigate("/");
-            }}
-          >
-            <h4>Delete</h4>
-          </button>
-        </div>
-        <p className="note-desc_detail">{note.body}</p>
-      </div>
-    </section>
+  return !isLoading ? (
+    <>
+      {note ? (
+        <>
+          <section>
+            <div className="note-body_detail">
+              <div className="note-detail_header">
+                <h4 className="note-create_detail">
+                  Create at: {showFormattedDate(note.createdAt)}
+                </h4>
+                <button className="note-detail_delete" onClick={onDetailDelete}>
+                  <h4>Delete</h4>
+                </button>
+              </div>
+              <p className="note-desc_detail">{note.body}</p>
+            </div>
+          </section>
+        </>
+      ) : (
+        <p>Note Not Found</p>
+      )}
+    </>
+  ) : (
+    <>
+      <p>loading..</p>
+    </>
   );
 }
 
