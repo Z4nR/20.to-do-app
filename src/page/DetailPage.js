@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate, useParams } from "react-router-dom";
 import { getActiveNotes, getNote } from "../utils/api";
-import { showFormattedDate } from "../utils/time-format";
+import { showFormattedDateEN, showFormattedDateID } from "../utils/time-format";
 import { LocaleConsumer } from "../contexts/LocaleContext";
 import DataContext from "../contexts/DataContext";
 
@@ -37,8 +37,10 @@ function DetailPage({ onDelete }) {
                 <div className="note-body_detail">
                   <div className="note-detail_header">
                     <h4 className="note-create_detail">
-                      {locale === "id" ? "Dibuat : " : "Created at :"}
-                      {showFormattedDate(note.createdAt)}
+                      {locale === "id" ? "Dibuat : " : "Created at : "}
+                      {locale === "id"
+                        ? showFormattedDateID(note.createdAt)
+                        : showFormattedDateEN(note.createdAt)}
                     </h4>
                     <button
                       className="note-detail_delete"
