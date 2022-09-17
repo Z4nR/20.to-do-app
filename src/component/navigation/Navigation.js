@@ -5,9 +5,11 @@ import { FiHome, FiPlusCircle, FiLogOut } from "react-icons/fi";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { BsTranslate } from "react-icons/bs";
 import ThemeContext from "../../contexts/ThemeContext";
+import LocaleContext from "../../contexts/LocaleContext";
 
 function Navigation({ logout, name }) {
   const { themeNote, toggleTheme } = useContext(ThemeContext);
+  const { toggleLocale } = useContext(LocaleContext);
 
   return name ? (
     <nav className="navigation">
@@ -23,9 +25,9 @@ function Navigation({ logout, name }) {
           </Link>
         </li>
         <li>
-          <Link to="/translate">
+          <button onClick={toggleLocale}>
             <BsTranslate />
-          </Link>
+          </button>
         </li>
         <li>
           <button onClick={toggleTheme}>
@@ -44,9 +46,9 @@ function Navigation({ logout, name }) {
     <nav className="navigation">
       <ul>
         <li>
-          <Link to="/translate">
+          <button onClick={toggleLocale}>
             <BsTranslate />
-          </Link>
+          </button>
         </li>
         <li>
           <button onClick={toggleTheme}>

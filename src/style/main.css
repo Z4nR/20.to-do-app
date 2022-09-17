@@ -2,12 +2,16 @@
   --font-color: #333;
   --background-color: #eee;
   --outline-color: #333;
+  --input-color: transparent;
+  --border-input-color: #333;
 }
 
 [data-theme="dark"] {
   --font-color: #eee;
   --background-color: #333;
   --outline-color: #eee;
+  --input-color: whitesmoke;
+  --border-input-color: transparent;
 }
 
 * {
@@ -276,8 +280,8 @@ body {
   width: 100%;
   margin: 8px 0;
   font-size: 20px;
-  background-color: transparent;
-  border: 2px dashed var(--outline-color);
+  background-color: var(--input-color);
+  border: 2px dashed var(--border-input-color);
   border-radius: 8px;
 }
 
@@ -288,9 +292,10 @@ body {
   padding: 16px;
   font-size: 24px;
   background-color: tan;
-  border: 2px dashed var(--outline-color);
+  border: 2px dashed var(--border-input-color);
   border-radius: 8px;
   margin: 16px 0;
+  cursor: pointer;
 }
 
 /*Web Scrollbar*/

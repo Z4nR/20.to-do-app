@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { LocaleConsumer } from "../../contexts/LocaleContext";
 
 class NoteInput extends React.Component {
   constructor(props) {
@@ -44,23 +45,33 @@ class NoteInput extends React.Component {
 
   render() {
     return (
-      <form className="note-input" onSubmit={this.onSubmitNoteHandler}>
-        <input
-          className="note-title"
-          type="text"
-          placeholder="Title"
-          value={this.state.title}
-          onChange={this.onTitleChangeNoteHandler}
-        />
-        <input
-          className="note-body"
-          type="text"
-          placeholder="Description"
-          value={this.state.body}
-          onChange={this.onBodyNoteHandler}
-        />
-        <button type="submit">Add Note</button>
-      </form>
+      <LocaleConsumer>
+        {({ locale }) => {
+          return (
+            <form className="note-input" onSubmit={this.onSubmitNoteHandler}>
+              <input
+                className="note-title"
+                type="text"
+                placeholder={locale === "id" ? "Judul" : "Title"}
+                value={this.state.title}
+                onChange={this.onTitleChangeNoteHandler}
+              />
+              <input
+                className="note-body"
+                type="text"
+                placeholder={
+                  locale === "id" ? "Isi Catatan" : "Description of Note"
+                }
+                value={this.state.body}
+                onChange={this.onBodyNoteHandler}
+              />
+              <button type="submit">
+                {locale === "id" ? "Buat Catatan" : "Create Note"}
+              </button>
+            </form>
+          );
+        }}
+      </LocaleConsumer>
     );
   }
 }

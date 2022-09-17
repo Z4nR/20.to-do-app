@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { LocaleConsumer } from "../contexts/LocaleContext";
 import useInput from "../customHooks/useInput";
 import { register } from "../utils/api";
 
@@ -23,47 +24,65 @@ function RegisterPage() {
   }
 
   return (
-    <section className="register_page">
-      <h2>Registration</h2>
-      <div className="register_input">
-        <div className="input-block">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            placeholder="Nama"
-            value={name}
-            onChange={onNameUserChange}
-          />
-        </div>
-        <div className="input-block">
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={onEmailUserChange}
-          />
-        </div>
-        <div className="input-block">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={onPasswordUserChange}
-          />
-        </div>
-        <button type="button" onClick={onSubmitUserHandler}>
-          Register
-        </button>
-      </div>
-      <p>
-        Kembali ke{" "}
-        <Link to="/" className="toLink">
-          Masuk
-        </Link>
-      </p>
-    </section>
+    <LocaleConsumer>
+      {({ locale }) => {
+        return (
+          <section className="register_page">
+            <h2>{locale === "id" ? "Buat Akun" : "Create Account"}</h2>
+            <div className="register_input">
+              <div className="input-block">
+                <label htmlFor="name">
+                  {locale === "id" ? "Nama" : "Name"}
+                </label>
+                <input
+                  type="text"
+                  placeholder={
+                    locale === "id" ? "Masukkan Nama Anda" : "Input Your Name"
+                  }
+                  value={name}
+                  onChange={onNameUserChange}
+                />
+              </div>
+              <div className="input-block">
+                <label htmlFor="email">
+                  {locale === "id" ? "Surel" : "Email"}
+                </label>
+                <input
+                  type="text"
+                  placeholder={
+                    locale === "id" ? "Masukkan Surel" : "Input Email"
+                  }
+                  value={email}
+                  onChange={onEmailUserChange}
+                />
+              </div>
+              <div className="input-block">
+                <label htmlFor="password">
+                  {locale === "id" ? "Kata Sandi" : "Password"}
+                </label>
+                <input
+                  type="password"
+                  placeholder={
+                    locale === "id" ? "masukkan Kata Sandi" : "Input Password"
+                  }
+                  value={password}
+                  onChange={onPasswordUserChange}
+                />
+              </div>
+              <button type="button" onClick={onSubmitUserHandler}>
+                {locale === "id" ? "Daftar" : "Register"}
+              </button>
+            </div>
+            <p>
+              {locale === "id" ? "Kembali ke" : "Back to"}{" "}
+              <Link to="/" className="toLink">
+                {locale === "id" ? "Masuk" : "Login"}
+              </Link>
+            </p>
+          </section>
+        );
+      }}
+    </LocaleConsumer>
   );
 }
 

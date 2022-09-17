@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { login } from "../utils/api";
 import { Link } from "react-router-dom";
 import useInput from "../customHooks/useInput";
+import { LocaleConsumer } from "../contexts/LocaleContext";
 
 function LoginPage({ loginSuccess }) {
   const [email, onUserEmailHandler] = useInput("");
@@ -18,38 +19,52 @@ function LoginPage({ loginSuccess }) {
   }
 
   return (
-    <section className="login_page">
-      <h2>Masukkan Data</h2>
-      <div className="login_input">
-        <div className="input-block">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={onUserEmailHandler}
-          />
-        </div>
-        <div className="input-block">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={onUserPasswordHandler}
-          />
-        </div>
-        <button type="button" onClick={onLogin}>
-          Masuk
-        </button>
-      </div>
-      <p>
-        Belum punya akun?{" "}
-        <Link to="register" className="toLink">
-          Daftar disini
-        </Link>
-      </p>
-    </section>
+    <LocaleConsumer>
+      {({ locale }) => {
+        return (
+          <section className="login_page">
+            <h2>{locale === "id" ? "Masuk ke Akun" : "Login to Account"}</h2>
+            <div className="login_input">
+              <div className="input-block">
+                <label htmlFor="email">
+                  {locale === "id" ? "Surel" : "Email"}
+                </label>
+                <input
+                  type="email"
+                  placeholder={
+                    locale === "id" ? "Masukkan Surel" : "Input Email"
+                  }
+                  value={email}
+                  onChange={onUserEmailHandler}
+                />
+              </div>
+              <div className="input-block">
+                <label htmlFor="password">
+                  {locale === "id" ? "Kata Sandi" : "Password"}
+                </label>
+                <input
+                  type="password"
+                  placeholder={
+                    locale === "id" ? "masukkan Kata Sandi" : "Input Password"
+                  }
+                  value={password}
+                  onChange={onUserPasswordHandler}
+                />
+              </div>
+              <button type="button" onClick={onLogin}>
+                {locale === "id" ? "Masuk" : "Login"}
+              </button>
+            </div>
+            <p>
+              {locale === "id" ? "Belum Punya Akun?" : "Don't Have Account?"}{" "}
+              <Link to="register" className="toLink">
+                {locale === "id" ? "Daftar Disini" : "Sign Up"}
+              </Link>
+            </p>
+          </section>
+        );
+      }}
+    </LocaleConsumer>
   );
 }
 

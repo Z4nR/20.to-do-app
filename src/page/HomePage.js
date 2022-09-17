@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import NoteList from "../component/NoteList";
 import NoteSearch from "../component/search/SearchBar";
+import DataContext from "../contexts/DataContext";
+import { LocaleConsumer } from "../contexts/LocaleContext";
 import { deleteNote, getActiveNotes } from "../utils/api";
 
 function HomePage() {
+  const { data } = useContext(DataContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [notes, setNotes] = useState([]);
   const [keyword, setKeyword] = useState(() => {
@@ -34,11 +37,20 @@ function HomePage() {
   });
 
   return (
-    <section>
-      <NoteSearch keyword={keyword} keywordChange={onKeywordChangeHandler} />
-      <h3>List of Your Note</h3>
-      <NoteList notes={filterNotes} onDelete={onDeleteNoteHandler} />
-    </section>
+    <LocaleConsumer>
+      {({ locale }) => {
+        return (
+          <section>
+            <NoteSearch
+              keyword={keyword}
+              keywordChange={onKeywordChangeHandler}
+            />
+            <h3>{locale === "id" ? "Daftar Catatanku" : "List of My Note"}</h3>
+            <NoteList notes={filterNotes} onDelete={onDeleteNoteHandler} />
+          </section>
+        );
+      }}
+    </LocaleConsumer>
   );
 }
 

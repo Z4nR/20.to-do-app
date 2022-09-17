@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate, useParams } from "react-router-dom";
 import { getNote } from "../utils/api";
-import { showFormattedDate } from "../utils/data";
+import { showFormattedDate } from "../utils/time-format";
 
 function DetailPage({ onDelete }) {
   const { id } = useParams();
