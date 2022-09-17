@@ -13,7 +13,7 @@ import { LocaleConsumer } from "../contexts/LocaleContext";
 import { deleteNote, getActiveNotes } from "../utils/api";
 
 function HomePage() {
-  const [notes, setNotes] = useContext(DataContext);
+  const { notes, setNotes } = useContext(DataContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState(() => {
