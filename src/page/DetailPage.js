@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate, useParams } from "react-router-dom";
 import { getActiveNotes, getNote } from "../utils/api";
 import { showFormattedDate } from "../utils/time-format";
 import { LocaleConsumer } from "../contexts/LocaleContext";
-import { useContext } from "react";
 import DataContext from "../contexts/DataContext";
 
 function DetailPage({ onDelete }) {
