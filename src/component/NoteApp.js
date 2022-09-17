@@ -15,6 +15,7 @@ import {
 } from "../utils/api";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import { LocaleProvider } from "../contexts/LocaleContext";
+import { DataProvider } from "../contexts/DataContext";
 
 function NoteApp() {
   const [authedUser, setAuthedUser] = useState(null);
@@ -55,6 +56,13 @@ function NoteApp() {
       toggleTheme,
     };
   }, [themeNote]);
+
+  const dataContext = useMemo(() => {
+    return {
+      notes: allNotes,
+      setNotes: setAllNotes
+    }
+  }, [allNotes])
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", themeNote);
@@ -97,54 +105,38 @@ function NoteApp() {
     return null;
   }
 
-  if (authedUser === null) {
-    return (
+  return (
+    <DataProvider value={dataContext}>
       <LocaleProvider value={localeNoteContext}>
         <ThemeProvider value={themeNoteContext}>
           <div className="note-app">
             <header className="note-app_header">
-              <h1>
-                {localeNoteContext.locale === "id" ? "Catatanku" : "My Note"}
-              </h1>
-              <Navigation logout={onLogout} name={""} />
+              <h1>{locale === "id" ? "Catatanku" : "My Note"}</h1>
+              <Navigation logout={onLogout} name={authedUser.name} />
             </header>
             <main>
               <Routes>
-                <Route
-                  path="/*"
-                  element={<LoginPage loginSuccess={onLoginSuccess} />}
+                {authedUser ? <>
+                  <Route path="*" element={<NotFound />} />
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/add" element={<AddPage />} />
+                  <Route
+                    path="/note/:id"
+                    element={<DetailPage onDelete={onDelete} />}
                 />
-                <Route path="/register" element={<RegisterPage />} />
+                </> : <>
+                    <Route
+                      path="/*"
+                      element={<LoginPage loginSuccess={onLoginSuccess} />}
+                    />
+                    <Route path="/register" element={<RegisterPage />} />
+                </>}
               </Routes>
             </main>
           </div>
         </ThemeProvider>
       </LocaleProvider>
-    );
-  }
-
-  return (
-    <LocaleProvider value={localeNoteContext}>
-      <ThemeProvider value={themeNoteContext}>
-        <div className="note-app">
-          <header className="note-app_header">
-            <h1>{locale === "id" ? "Catatanku" : "My Note"}</h1>
-            <Navigation logout={onLogout} name={authedUser.name} />
-          </header>
-          <main>
-            <Routes>
-              <Route path="*" element={<NotFound />} />
-              <Route path="/" element={<HomePage notes={allNotes} />} />
-              <Route path="/add" element={<AddPage />} />
-              <Route
-                path="/note/:id"
-                element={<DetailPage onDelete={onDelete} />}
-              />
-            </Routes>
-          </main>
-        </div>
-      </ThemeProvider>
-    </LocaleProvider>
+    </DataProvider>
   );
 }
 
