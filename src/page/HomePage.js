@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useSearchParams } from "react-router-dom";
 import NoteList from "../component/NoteList";
 import NoteSearch from "../component/search/SearchBar";
@@ -7,24 +13,23 @@ import { LocaleConsumer } from "../contexts/LocaleContext";
 import { deleteNote, getActiveNotes } from "../utils/api";
 
 function HomePage() {
-  const { data } = useContext(DataContext);
+  const [notes, setNotes] = useContext(DataContext);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [notes, setNotes] = useState([]);
+  const [isLoading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState(() => {
     return searchParams.get("keyword") || "";
   });
 
-  useEffect(() => {
-    getActiveNotes().then(({ data }) => {
-      setNotes(data);
-    });
-  }, []);
+  const populateNotes = useCallback(async () => {
+    const { data } = await getActiveNotes();
+    setNotes(data);
+    setLoading(false);
+  }, [setNotes, setLoading]);
 
   async function onDeleteNoteHandler(id) {
     await deleteNote(id);
 
-    const { data } = await getActiveNotes();
-    setNotes(data);
+    populateNotes();
   }
 
   function onKeywordChangeHandler(keyword) {
@@ -32,9 +37,17 @@ function HomePage() {
     setSearchParams({ keyword });
   }
 
-  const filterNotes = notes.filter((note) => {
-    return note.title.toLowerCase().includes(keyword.toLowerCase());
-  });
+  const filterNotes = useMemo(
+    () =>
+      notes.filter((note) => {
+        return note.title.toLowerCase().includes(keyword.toLowerCase());
+      }),
+    [notes, keyword]
+  );
+
+  useEffect(() => {
+    populateNotes();
+  }, [populateNotes]);
 
   return (
     <LocaleConsumer>
@@ -46,7 +59,11 @@ function HomePage() {
               keywordChange={onKeywordChangeHandler}
             />
             <h3>{locale === "id" ? "Daftar Catatanku" : "List of My Note"}</h3>
-            <NoteList notes={filterNotes} onDelete={onDeleteNoteHandler} />
+            <NoteList
+              notes={filterNotes}
+              isLoading={isLoading}
+              onDelete={onDeleteNoteHandler}
+            />
           </section>
         );
       }}

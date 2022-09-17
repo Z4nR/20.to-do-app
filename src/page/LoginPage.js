@@ -45,7 +45,7 @@ function LoginPage({ loginSuccess }) {
                 <input
                   type="password"
                   placeholder={
-                    locale === "id" ? "masukkan Kata Sandi" : "Input Password"
+                    locale === "id" ? "Masukkan Kata Sandi" : "Input Password"
                   }
                   value={password}
                   onChange={onUserPasswordHandler}

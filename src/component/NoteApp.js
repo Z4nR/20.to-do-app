@@ -15,12 +15,20 @@ import {
 } from "../utils/api";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import { LocaleProvider } from "../contexts/LocaleContext";
+import { DataProvider } from "../contexts/DataContext";
 
 function NoteApp() {
   const [authedUser, setAuthedUser] = useState(null);
   const [allNotes, setAllNotes] = useState([]);
   const [initializing, setInitializing] = useState(true);
   const navigate = useNavigate();
+
+  const dataContext = useMemo(() => {
+    return {
+      notes: allNotes,
+      setNotes: setAllNotes,
+    };
+  }, [allNotes]);
 
   const [locale, setLocaleNote] = useState("id");
 
@@ -124,27 +132,29 @@ function NoteApp() {
   }
 
   return (
-    <LocaleProvider value={localeNoteContext}>
-      <ThemeProvider value={themeNoteContext}>
-        <div className="note-app">
-          <header className="note-app_header">
-            <h1>{locale === "id" ? "Catatanku" : "My Note"}</h1>
-            <Navigation logout={onLogout} name={authedUser.name} />
-          </header>
-          <main>
-            <Routes>
-              <Route path="*" element={<NotFound />} />
-              <Route path="/" element={<HomePage notes={allNotes} />} />
-              <Route path="/add" element={<AddPage />} />
-              <Route
-                path="/note/:id"
-                element={<DetailPage onDelete={onDelete} />}
-              />
-            </Routes>
-          </main>
-        </div>
-      </ThemeProvider>
-    </LocaleProvider>
+    <DataProvider value={dataContext}>
+      <LocaleProvider value={localeNoteContext}>
+        <ThemeProvider value={themeNoteContext}>
+          <div className="note-app">
+            <header className="note-app_header">
+              <h1>{locale === "id" ? "Catatanku" : "My Note"}</h1>
+              <Navigation logout={onLogout} name={authedUser.name} />
+            </header>
+            <main>
+              <Routes>
+                <Route path="*" element={<NotFound />} />
+                <Route path="/" element={<HomePage />} />
+                <Route path="/add" element={<AddPage />} />
+                <Route
+                  path="/note/:id"
+                  element={<DetailPage onDelete={onDelete} />}
+                />
+              </Routes>
+            </main>
+          </div>
+        </ThemeProvider>
+      </LocaleProvider>
+    </DataProvider>
   );
 }
 
