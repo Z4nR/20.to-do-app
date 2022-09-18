@@ -83,6 +83,7 @@ function DetailPage({ onDelete }) {
 
 DetailPage.propTypes = {
   onDelete: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default DetailPage;

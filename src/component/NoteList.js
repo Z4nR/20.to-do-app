@@ -43,6 +43,7 @@ function NoteList({ notes, onDelete, isLoading }) {
 NoteList.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onDelete: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default NoteList;
