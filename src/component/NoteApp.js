@@ -30,11 +30,15 @@ function NoteApp() {
     };
   }, [allNotes]);
 
-  const [locale, setLocaleNote] = useState("id");
+  const [locale, setLocaleNote] = useState(
+    localStorage.getItem("localeNote") || "id"
+  );
 
   const toggleLocale = () => {
     setLocaleNote((prevLocale) => {
-      return prevLocale === "id" ? "en" : "id";
+      const changeLocale = prevLocale === "id" ? "en" : "id";
+      localStorage.setItem("localeNote", changeLocale);
+      return changeLocale;
     });
   };
 

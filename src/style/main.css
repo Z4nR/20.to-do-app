@@ -87,10 +87,11 @@ body {
   overflow-y: scroll;
 }
 
-/*Note Empty List and Not Found Page*/
+/*Empty Load 404*/
 
 .note-list_empty,
-.note-found-page {
+.note-found-page,
+.note-loading {
   text-align: center;
   font-weight: bold;
   font-size: 28px;
@@ -246,6 +247,7 @@ body {
   font-family: "Inter", sans-serif;
   border: 2px dashed var(--outline-color);
   border-radius: 4px;
+  color: var(--font-color);
 }
 
 /*Register & Login Page*/

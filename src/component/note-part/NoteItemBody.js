@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { showFormattedDateEN, showFormattedDateID } from "../utils/time-format";
 import { Link } from "react-router-dom";
-import { LocaleConsumer } from "../contexts/LocaleContext";
+import {
+  showFormattedDateEN,
+  showFormattedDateID,
+} from "../../utils/time-format";
+import { LocaleConsumer } from "../../contexts/LocaleContext";
 
 function NoteItemBody({ id, title, createdAt, body }) {
   return (

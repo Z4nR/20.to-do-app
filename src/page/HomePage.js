@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { useSearchParams } from "react-router-dom";
-import NoteList from "../component/NoteList";
+import NoteList from "../component/note-part/NoteList";
 import NoteSearch from "../component/search/SearchBar";
 import DataContext from "../contexts/DataContext";
 import { LocaleConsumer } from "../contexts/LocaleContext";
@@ -39,7 +39,7 @@ function HomePage() {
 
   const filterNotes = useMemo(
     () =>
-      notes.filter((note) => {
+      notes?.filter((note) => {
         return note.title.toLowerCase().includes(keyword.toLowerCase());
       }),
     [notes, keyword]
@@ -59,11 +59,13 @@ function HomePage() {
               keywordChange={onKeywordChangeHandler}
             />
             <h3>{locale === "id" ? "Daftar Catatanku" : "List of My Note"}</h3>
-            <NoteList
-              notes={filterNotes}
-              isLoading={isLoading}
-              onDelete={onDeleteNoteHandler}
-            />
+            {filterNotes && (
+              <NoteList
+                notes={filterNotes}
+                isLoading={isLoading}
+                onDelete={onDeleteNoteHandler}
+              />
+            )}
           </section>
         );
       }}

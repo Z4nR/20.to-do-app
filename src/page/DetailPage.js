@@ -5,6 +5,8 @@ import { getActiveNotes, getNote } from "../utils/api";
 import { showFormattedDateEN, showFormattedDateID } from "../utils/time-format";
 import { LocaleConsumer } from "../contexts/LocaleContext";
 import DataContext from "../contexts/DataContext";
+import EmptyDetail from "../component/empty/EmptyDetail";
+import Loading from "../component/loading/Loading";
 
 function DetailPage({ onDelete }) {
   const { id } = useParams();
@@ -59,31 +61,16 @@ function DetailPage({ onDelete }) {
           }}
         </LocaleConsumer>
       ) : (
-        <LocaleConsumer>
-          {({ locale }) => {
-            return (
-              <p className="note-detail_empty">
-                {locale === "id"
-                  ? "Catatan Tidak Ditemukan"
-                  : "Note not found!!"}
-              </p>
-            );
-          }}
-        </LocaleConsumer>
+        <EmptyDetail />
       )}
     </>
   ) : (
-    <LocaleConsumer>
-      {({ locale }) => {
-        return <p>{locale === "id" ? "Memuat.." : "Loading.."}</p>;
-      }}
-    </LocaleConsumer>
+    <Loading />
   );
 }
 
 DetailPage.propTypes = {
   onDelete: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };
 
 export default DetailPage;

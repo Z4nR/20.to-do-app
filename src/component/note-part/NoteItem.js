@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import NoteBtn from "./button/ButtonBody";
+import NoteBtn from "../button/ButtonBody";
 import NoteItemBody from "./NoteItemBody";
 
 function NoteItem({ id, title, createdAt, body, onDelete }) {
